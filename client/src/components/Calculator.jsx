@@ -5,11 +5,19 @@ import {
   Select,
   Button,
   Typography,
-  Form,
+  Form, message,
   Space,
 } from "antd";
+import { calculatePrice } from "../api/pricing";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../app/loaderSlice";
+import Loader from "./Loader";
 
 const Calculator = () => {
+  const [form] = Form.useForm();
+  const [price, setPrice] = useState(null);
+  const dispatch = useDispatch();
+
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -21,11 +29,20 @@ const Calculator = () => {
   ];
   const { Title, Text } = Typography;
 
-    const [form] = Form.useForm();
-
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
       console.log("Calculation input:", values);
       // Call backend or calculate price here
+      dispatch(setLoading(true));
+      try{
+        setPrice(null);
+        const data = await calculatePrice(values);
+        setPrice(data.totalPrice);
+      }catch(error){
+        console.error("Error calculating price:", error);
+        message.error("Failed to calculate price.")
+      }finally{
+        dispatch(setLoading(false));
+      }
     };
 
     return (
