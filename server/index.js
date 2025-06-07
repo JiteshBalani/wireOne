@@ -5,6 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const pricingRoutes = require("./routes/pricing");
+const configRoutes = require("./routes/config");
 const app = express();
 
 const frontendURL = process.env.FRONTEND_URL || 'http://localhost:5173';
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use("/api", pricingRoutes);
+app.use("/api/configs", configRoutes);
 
 const dbURL = process.env.DB_URL;
 

@@ -10,15 +10,17 @@ import {
   Space,
 } from "antd";
 import { calculatePrice } from "../api/pricing";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../app/loaderSlice";
 import Loader from "./Loader";
+import TailwindLoader from "./TailwindLoader";
 
 const Calculator = () => {
   const [form] = Form.useForm();
   const [price, setPrice] = useState(null);
   const [priceDetails, setPriceDetails] = useState(null);
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loader.isLoading);
 
   const daysOfWeek = [
     "Monday",
@@ -38,6 +40,7 @@ const Calculator = () => {
       setPriceDetails(null);
       setPrice(null);
       const data = await calculatePrice(values);
+      await new Promise((resolve) => setTimeout(resolve, 5000)); 
       setPriceDetails(data);
       setPrice(data.totalPrice);
     } catch (error) {
@@ -107,6 +110,7 @@ const Calculator = () => {
           </Button>
         </Form.Item>
       </Form>
+      {loading && <TailwindLoader/>}
       {priceDetails && priceDetails.details && (
         <div
           style={{
