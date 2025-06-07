@@ -26,6 +26,7 @@ const WaitingChargeSchema = new mongoose.Schema({
 
 const PricingConfigSchema = new mongoose.Schema({
     name: String,
+    createdBy: String,
     active: {type: Boolean, default: false},
     dbp: [DistanceBasedPriceSchema],
     dap: [DistanceAdditionalPriceSchema],

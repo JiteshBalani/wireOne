@@ -27,8 +27,8 @@ const App = () => {
   ]
   return (
     <div>
-      <h1 className='text-3xl font-semibold'>FareLogic Ride Price</h1>
-      <p>Configure and calculate dynamic pricing for ride-sharing services</p>
+      <h1 className='text-2xl text-center bg-[#001529] text-white font-semibold p-2'>FareLogic Price Engine</h1>
+      {/* <p>Configure and calculate dynamic pricing for ride-sharing services</p> */}
       <Tabs centered defaultActiveKey='1' items={tabItems} />
     </div>
   )
