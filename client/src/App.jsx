@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import Calculator from './components/Calculator';
 import Configurations from './components/Configurations';
 import NewConfig from './components/NewConfig';
+import {GithubOutlined } from '@ant-design/icons';
 
 const App = () => {
   const tabItems = [
@@ -27,8 +28,11 @@ const App = () => {
   ]
   return (
     <div>
-      <h1 className='text-2xl text-center bg-[#001529] text-white font-semibold p-2'>FareLogic Price Engine</h1>
-      {/* <p>Configure and calculate dynamic pricing for ride-sharing services</p> */}
+    <div className='flex justify-between w-screen bg-[#001529] text-white font-semibold p-2'>
+
+      <h1 className='text-2xl text-center text-white '>Fare Logic</h1>
+      <p>Created By: <a className='text-blue-400 mr-1' href='https://github.com/JiteshBalani/wireone' target='blank'>Jitesh Balani</a><GithubOutlined/></p>
+    </div>
       <Tabs centered defaultActiveKey='1' items={tabItems} />
     </div>
   )
