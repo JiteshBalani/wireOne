@@ -54,7 +54,7 @@ const Configurations = () => {
     dispatch(setLoading(true));
     try {
       const response = await getAllConfigs();
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 100));
         console.log('Existing configs:', response);
         setConfigs(response);
     } catch (error) {
