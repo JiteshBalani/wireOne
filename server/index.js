@@ -18,6 +18,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
+app.options('*', cors());
 
 app.use("/api", pricingRoutes);
 app.use("/api/configs", configRoutes);
