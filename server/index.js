@@ -12,22 +12,10 @@ const app = express();
 const frontendURL = process.env.FRONTEND_URL;
 app.use(express.json());
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://wireone.vercel.app'
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log('Blocked by CORS:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  origin: ['https://wireone.vercel.app', 'http://localhost:3000'], // Add your frontend domains
+  credentials: true, // If you need to send cookies/auth headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.options('*', cors());
