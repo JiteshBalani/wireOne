@@ -16,14 +16,19 @@ import {
   Tag
 } from 'antd';
 import { PlusOutlined, MinusCircleOutlined, SaveOutlined, ClearOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import { createConfig } from '../api/config';
+import TailwindLoader from './TailwindLoader';
+import { setLoading } from '../app/loaderSlice';
+import Loader from './Loader';
 
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
 
 const NewConfig = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+    const loading = useSelector((state) => state.loader.isLoading);
+    const dispatch = useDispatch();
 
   const daysOfWeek = [
     { key: 'mon', label: 'Monday' },
@@ -36,7 +41,7 @@ const NewConfig = () => {
   ];
 
   const onFinish = async (values) => {
-    setLoading(true);
+    dispatch(setLoading(true));
     try {
       // Transform the form data to match backend expectations
       const configData = {
@@ -62,6 +67,7 @@ const NewConfig = () => {
       console.log('Config data to send:', configData);
       
       const result = await createConfig(configData);
+      await new Promise((resolve) => setTimeout(resolve, 5000)); 
       
       message.success('Configuration created successfully!');
       form.resetFields();
@@ -70,7 +76,7 @@ const NewConfig = () => {
       console.error('Error creating config:', error);
       message.error('Failed to create configuration. Please try again.');
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -81,6 +87,7 @@ const NewConfig = () => {
 
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px' }}>
+    {loading && <Loader/>}
       <Card>
         <div style={{ marginBottom: '24px' }}>
           <Title level={3}>Create New Pricing Configuration</Title>
@@ -320,7 +327,7 @@ const NewConfig = () => {
           {/* Action Buttons */}
           <Form.Item>
             <Space>
-              <Button
+              <Button style={{backgroundColor: '#001529'}}
                 type="primary"
                 htmlType="submit"
                 loading={loading}

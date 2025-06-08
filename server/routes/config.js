@@ -74,14 +74,30 @@ router.put("/update-config/:id", async (req, res) => {
         const { id } = req.params;
         const updateData = req.body;
 
+        // Validate that updateData exists and has required fields
+        if (!updateData || typeof updateData !== 'object') {
+            return res.status(400).json({ error: "Invalid request data" });
+        }
+
+        // Clean and validate the update data
+        const cleanUpdateData = {};
+        
+        if (updateData.name !== undefined) cleanUpdateData.name = updateData.name;
+        if (updateData.createdBy !== undefined) cleanUpdateData.createdBy = updateData.createdBy;
+        if (updateData.active !== undefined) cleanUpdateData.active = Boolean(updateData.active);
+        if (updateData.dbp !== undefined) cleanUpdateData.dbp = updateData.dbp;
+        if (updateData.dap !== undefined) cleanUpdateData.dap = updateData.dap;
+        if (updateData.tmf !== undefined) cleanUpdateData.tmf = updateData.tmf;
+        if (updateData.wc !== undefined) cleanUpdateData.wc = updateData.wc;
+
         // If setting this config to active, deactivate all others first
-        if (updateData.active) {
+        if (cleanUpdateData.active === true) {
             await PricingConfig.updateMany({ _id: { $ne: id } }, { active: false });
         }
 
         const updatedConfig = await PricingConfig.findByIdAndUpdate(
             id, 
-            updateData, 
+            cleanUpdateData, 
             { new: true, runValidators: true }
         );
 

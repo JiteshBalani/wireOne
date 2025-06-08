@@ -18,7 +18,7 @@ const Loader = () => {
         background: 'rgba(0, 102, 255, 0.1)',
         zIndex: 1000
     }}>
-    <Spin size='large' tip='Loading...' fullscreen/>
+    <Spin size='large' tip='Saving new config... Please wait!' fullscreen/>
 
     </div>
   ) : null;
