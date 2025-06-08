@@ -13,17 +13,15 @@ const frontendURL = process.env.FRONTEND_URL;
 app.use(express.json());
 
 app.use(cors({
-  origin: ['https://wireone.vercel.app', 'http://localhost:3000'], // Add your frontend domains
-  credentials: true, // If you need to send cookies/auth headers
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+    origin: process.env.FRONTEND_URL, 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
-app.options('*', cors());
+
 
 app.use("/api", pricingRoutes);
 app.use("/api/configs", configRoutes);
-
-
 
 const dbURL = process.env.DB_URL;
 
