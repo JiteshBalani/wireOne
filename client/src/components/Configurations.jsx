@@ -244,7 +244,7 @@ const Configurations = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-semibold text-gray-900 mb-2">Existing Configurations</h1>
-          <p className="text-gray-600">Manage your pricing configurations and rules</p>
+          <p className="text-gray-600">Refresh to see recently created configurations.</p>
         </div>
 
         <Card className="shadow-sm">

@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
-dotenv.config();
+const envFile = process.argv.includes('--dev') ? '.env.development' : '.env.production';
+dotenv.config({ path: envFile });
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,7 +9,7 @@ const pricingRoutes = require("./routes/pricing");
 const configRoutes = require("./routes/config");
 const app = express();
 
-const frontendURL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const frontendURL = process.env.FRONTEND_URL;
 app.use(express.json());
 
 app.use(cors({
